@@ -17,14 +17,11 @@ phases:
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
-	  - echo affichage des images docker
-	  - docker images
   post_build:
     commands:
       - echo Build completed on `date`
-	  - echo $REPOSITORY_URI
       - echo pushing to repo
-      - docker push $REPOSITORY_URI:latest || (echo "Push failed"; docker logout; exit 1)
+      - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       # Give your container name
